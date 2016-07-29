@@ -1,0 +1,33 @@
+{
+  "name": "alchemy/queue-bundle",
+  "description": "Symfony bundle for alchemy/queue-component",
+  "authors": [
+    {
+      "name": "Thibaud Fabre",
+      "email": "thibaud@aztech.io"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Alchemy\\QueueBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Alchemy\\QueueBundle\\Tests\\": "tests/unit/Bundle"
+    }
+  },
+  "license": "MIT",
+  "require-dev": {
+    "symfony/symfony": "^2.6"
+  },
+  "require": {
+    "alchemy/queue-component": "^0.1",
+    "php": ">=5.5"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  }
+}
