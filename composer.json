@@ -23,7 +23,7 @@
     "phpunit/phpunit": "^5.4"
   },
   "require": {
-    "alchemy/queue-component": "^0.1.1",
+    "alchemy/queue-component": "^0.1.2",
     "php": ">=5.5"
   },
   "extra": {
