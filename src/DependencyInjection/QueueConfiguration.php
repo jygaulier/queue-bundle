@@ -26,8 +26,9 @@ class QueueConfiguration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
 
-        $builder->root('alchemy_queues')
+        $builder->root('alchemy_queue')
             ->children()
+                ->scalarNode('logger')->defaultNull()->end()
                 ->arrayNode('queues')
                     ->useAttributeAsKey('name', true)
                     ->prototype('array')

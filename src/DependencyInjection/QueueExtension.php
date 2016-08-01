@@ -14,6 +14,7 @@ namespace Alchemy\QueueBundle\DependencyInjection;
 use Alchemy\QueueBundle\Queue\QueueRegistry;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 class QueueExtension extends ConfigurableExtension
@@ -38,6 +39,10 @@ class QueueExtension extends ConfigurableExtension
     {
         $registry = new Definition(QueueRegistry::class);
         $queueConfigurations = $mergedConfig['queues'];
+
+        if ($mergedConfig['logger'] != '') {
+            $registry->addMethodCall('setLogger', [ new Reference($mergedConfig['logger']) ]);
+        }
 
         foreach ($queueConfigurations as $name => $configuration) {
             $registry->addMethodCall('bindConfiguration', [ $name, $configuration ]);

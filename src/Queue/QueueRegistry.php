@@ -13,8 +13,11 @@ namespace Alchemy\QueueBundle\Queue;
 
 use Alchemy\Queue\Amqp\AmqpMessageQueueFactory;
 use Alchemy\Queue\MessageQueue;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
-class QueueRegistry
+class QueueRegistry implements LoggerAwareInterface
 {
     /**
      * @var array
@@ -25,6 +28,16 @@ class QueueRegistry
      * @var MessageQueue[]
      */
     private $queues = [];
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct()
+    {
+        $this->logger = new NullLogger();
+    }
 
     /**
      * @param string $queueName
@@ -46,11 +59,25 @@ class QueueRegistry
         }
 
         if (isset($this->configurations[$queueName])) {
-            return $this->queues[$queueName] =
-                AmqpMessageQueueFactory::create($this->configurations[$queueName])->getNamedQueue($queueName);
+            $queue = AmqpMessageQueueFactory::create(
+                $this->configurations[$queueName],
+                $this->logger
+            )->getNamedQueue($queueName);
+
+            return $this->queues[$queueName] = $queue;
         }
 
         throw new \RuntimeException('Queue is not registered: ' . $queueName);
     }
 
+    /**
+     * Sets a logger instance on the object
+     *
+     * @param LoggerInterface $logger
+     * @return null
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
 }
