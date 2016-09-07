@@ -39,6 +39,7 @@ class QueueConfiguration implements ConfigurationInterface
                             ->scalarNode('vhost')->defaultValue('/')->end()
                             ->scalarNode('user')->defaultValue('guest')->end()
                             ->scalarNode('password')->defaultValue('guest')->end()
+                            ->scalarNode('timeout')->defaultValue(0)->end()
                         ->end()
                     ->end()
                 ->end();
