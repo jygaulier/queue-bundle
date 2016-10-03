@@ -6,7 +6,7 @@ use Alchemy\Queue\MessageQueueRegistry;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
-class QueueProvider implements ServiceProviderInterface
+class QueueServiceProvider implements ServiceProviderInterface
 {
 
     /**
