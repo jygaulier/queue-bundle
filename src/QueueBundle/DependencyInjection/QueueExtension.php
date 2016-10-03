@@ -38,6 +38,8 @@ class QueueExtension extends ConfigurableExtension
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
     {
         $registry = new Definition(QueueRegistry::class);
+        $container->setDefinition('alchemy_queues.registry', $registry);
+
         $queueConfigurations = $mergedConfig['queues'];
 
         if ($mergedConfig['logger'] != '') {
@@ -45,9 +47,13 @@ class QueueExtension extends ConfigurableExtension
         }
 
         foreach ($queueConfigurations as $name => $configuration) {
-            $registry->addMethodCall('bindConfiguration', [ $name, $configuration ]);
-        }
+            $targetRegistry = $registry;
 
-        $container->setDefinition('alchemy_queues.registry', $registry);
+            if (isset($configuration['registry'])) {
+                $targetRegistry = $container->getDefinition($configuration['registry']);
+            }
+
+            $targetRegistry->addMethodCall('bindConfiguration', [ $name, $configuration ]);
+        }
     }
 }

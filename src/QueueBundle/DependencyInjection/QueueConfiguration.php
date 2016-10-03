@@ -33,6 +33,7 @@ class QueueConfiguration implements ConfigurationInterface
                     ->useAttributeAsKey('name', true)
                     ->prototype('array')
                         ->children()
+                            ->scalarNode('registry')->defaultValue(null)->end()
                             ->scalarNode('name')->end()
                             ->scalarNode('host')->end()
                             ->scalarNode('port')->defaultValue(5672)->end()

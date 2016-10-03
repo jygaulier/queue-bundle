@@ -9,26 +9,29 @@
   ],
   "autoload": {
     "psr-4": {
-      "Alchemy\\QueueBundle\\": "src/"
+      "Alchemy\\QueueBundle\\": "src/QueueBundle",
+      "Alchemy\\QueueProvider\\": "src/QueueProvider"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Alchemy\\QueueBundle\\Tests\\": "tests/unit/Bundle"
+      "Alchemy\\QueueBundle\\Tests\\": "tests/unit/QueueBundle",
+      "Alchemy\\QueueProvider\\Tests\\": "tests/unit/QueueProvider"
     }
   },
   "license": "MIT",
   "require-dev": {
     "symfony/symfony": "^2.6",
-    "phpunit/phpunit": "^5.4"
+    "phpunit/phpunit": "^5.4",
+    "silex/silex": "^1.3.0"
   },
   "require": {
-    "alchemy/queue-component": "^0.1.3",
+    "alchemy/queue-component": "^0.1.4",
     "php": ">=5.5"
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "1.0.x-dev"
+      "dev-master": "0.2.x-dev"
     }
   }
 }
