@@ -37,6 +37,10 @@ class QueueServiceProvider implements ServiceProviderInterface
 
             if (isset($configuration['registry'])) {
                 $targetRegistry = $app[$configuration['registry']];
+
+                if ($targetRegistry == null) {
+                    throw new \RuntimeException('Invalid queue registry targeted: ' . $configuration['registry']);
+                }
             }
 
             $targetRegistry->bindConfiguration($name, $configuration);
