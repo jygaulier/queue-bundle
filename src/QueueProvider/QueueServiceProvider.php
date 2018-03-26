@@ -3,10 +3,13 @@
 namespace Alchemy\QueueProvider;
 
 use Alchemy\Queue\MessageQueueRegistry;
+use Silex\Api\BootableProviderInterface;
 use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
-class QueueServiceProvider implements ServiceProviderInterface
+
+class QueueServiceProvider implements ServiceProviderInterface, BootableProviderInterface
 {
 
     /**
@@ -15,11 +18,11 @@ class QueueServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      */
-    public function register(Application $app)
+    public function register(Container $app)
     {
-        $app['alchemy_queues.registry'] = $app->share(function (Application $app) {
+        $app['alchemy_queues.registry'] = function (Application $app) {
             return new MessageQueueRegistry();
-        });
+        };
     }
 
     /**
